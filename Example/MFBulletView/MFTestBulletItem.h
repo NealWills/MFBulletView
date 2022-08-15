@@ -16,8 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MFTestBulletItem : UIView <MFBulletItemProtocol>
 
-@property (nonatomic, strong) MFTestBulletModel *bulletModel;
-
 @end
 
 NS_ASSUME_NONNULL_END

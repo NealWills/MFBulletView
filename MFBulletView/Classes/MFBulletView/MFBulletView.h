@@ -45,6 +45,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (__kindof MFBulletView *(^)(CGFloat))setRailSpacing;
 
 /**
+ * 设置轨道内元素间隔
+ * @return 本体-链式语法调用
+ */
+- (__kindof MFBulletView * _Nonnull (^)(NSArray <NSNumber *> *))setRailItemSpacing;
+
+/**
  * 设置轨道起点偏移量
  * @return 本体-链式语法调用
  */

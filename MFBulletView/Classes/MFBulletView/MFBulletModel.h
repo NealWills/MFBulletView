@@ -16,6 +16,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, assign) CGFloat speed;
 
+/**
+ * 与最近的同轨道的间距， 无distance取当前轨道内元素间距
+ */
+@property (nonatomic, assign) CGFloat distanceToLast;
+
 @end
 
 NS_ASSUME_NONNULL_END

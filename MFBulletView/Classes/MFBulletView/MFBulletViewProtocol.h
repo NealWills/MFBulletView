@@ -12,9 +12,7 @@
 
 - (CGSize)itemSizeWithModel:(__kindof MFBulletModel *)bulletModel;
 
-- (void)configureItem;
-
-- (__kindof MFBulletModel *)bulletModel;
+- (void)configureItemWithModel:(__kindof MFBulletModel *)bulletModel;
 
 @end
 

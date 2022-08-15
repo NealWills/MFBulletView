@@ -28,18 +28,48 @@
     
     self.bulletView = MFBulletView.initWithFrame(CGRectMake(0, 100, self.view.frame.size.width, 200))
     .setSuperView(self.view)
-    .setRailCount(3)
+    .setRailCount(4)
     .setRailHeight(40)
     .setRailSpacing(20)
-    .setRailOffsetList(@[@(0), @(100)])
-    .setRailSpeedList(@[@(1), @(2), @(3)])
+    .setRailOffsetList(@[@(0), @(10), @(20), @(30)])
+    .setRailSpeedList(@[@(1), @(1), @(1)])
     .setViewDelegate(self)
     .setAddElements(@[
+        [MFTestBulletModel modelWithTitle:@"11223345" speed:1 distanceToLast:12],
+        [MFTestBulletModel modelWithTitle:@"223333444556" speed:1 distanceToLast:40],
+        [MFTestBulletModel modelWithTitle:@"dfdfsdfsdf" speed:1 distanceToLast:15],
+        [MFTestBulletModel modelWithTitle:@"sdfsdfdsfdsf" speed:1 distanceToLast:50],
+    ]);
+    
+    self.bulletView.setAddElements(@[
+        [MFTestBulletModel modelWithTitle:@"11223345" speed:1 distanceToLast:12],
+        [MFTestBulletModel modelWithTitle:@"223333444556" speed:1 distanceToLast:40],
+        [MFTestBulletModel modelWithTitle:@"dfdfsdfsdf" speed:1 distanceToLast:15],
+        [MFTestBulletModel modelWithTitle:@"sdfsdfdsfdsf" speed:1 distanceToLast:50],
+    ]);
+    
+    self.bulletView.setAddElements(@[
         [MFTestBulletModel modelWithTitle:@"11223345"],
         [MFTestBulletModel modelWithTitle:@"223333444556"],
         [MFTestBulletModel modelWithTitle:@"dfdfsdfsdf"],
         [MFTestBulletModel modelWithTitle:@"sdfsdfdsfdsf"],
     ]);
+    
+    self.bulletView.setAddElements(@[
+        [MFTestBulletModel modelWithTitle:@"11223345"],
+        [MFTestBulletModel modelWithTitle:@"223333444556"],
+        [MFTestBulletModel modelWithTitle:@"dfdfsdfsdf"],
+        [MFTestBulletModel modelWithTitle:@"sdfsdfdsfdsf"],
+    ]);
+    
+    self.bulletView.setAddElements(@[
+        [MFTestBulletModel modelWithTitle:@"11223345"],
+        [MFTestBulletModel modelWithTitle:@"223333444556"],
+        [MFTestBulletModel modelWithTitle:@"dfdfsdfsdf"],
+        [MFTestBulletModel modelWithTitle:@"sdfsdfdsfdsf"],
+    ]);
+    
+    
     
 }
 
