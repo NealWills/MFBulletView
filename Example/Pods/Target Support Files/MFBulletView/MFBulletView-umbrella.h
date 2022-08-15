@@ -10,6 +10,11 @@
 #endif
 #endif
 
+#import "MFBulletModel.h"
+#import "MFBulletView.h"
+#import "MFBulletViewDefaultItem.h"
+#import "MFBulletViewHeader.h"
+#import "MFBulletViewProtocol.h"
 
 FOUNDATION_EXPORT double MFBulletViewVersionNumber;
 FOUNDATION_EXPORT const unsigned char MFBulletViewVersionString[];
