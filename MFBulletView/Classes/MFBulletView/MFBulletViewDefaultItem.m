@@ -11,15 +11,11 @@
 
 
 - (CGSize)itemSizeWithModel:(__kindof MFBulletModel *)bulletModel {
-    return CGSizeMake(0, 0);
+    return CGSizeZero;
 }
 
-- (void)configureItem {
+- (void)configureItemWithModel:(__kindof MFBulletModel *)bulletModel {
     
-}
-
-- (__kindof MFBulletModel *)bulletModel {
-    return self.bulletModel;
 }
 
 @end
