@@ -1,0 +1,6 @@
+framework module Pods_MFBulletView_Tests {
+  umbrella header "Pods-MFBulletView_Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,6 @@
+framework module MFBulletView {
+  umbrella header "MFBulletView-umbrella.h"
+
+  export *
+  module * { export * }
+}
