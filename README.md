@@ -20,6 +20,10 @@ it, simply add the following line to your Podfile:
 pod 'MFBulletView'
 ```
 
+## Demo Gif
+
+![image](https://github.com/NealWills/MFBulletView/blob/main/Images/test.gif?raw=true)
+
 ## Usage
 
 ViewController  
