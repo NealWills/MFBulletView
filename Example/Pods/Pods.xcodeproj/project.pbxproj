@@ -12,6 +12,8 @@
 		0282A2B4D66CAECFEE81ACBC2393CEE4 /* FBSnapshotTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6111F071CD75E6A47B379243C38F59CC /* FBSnapshotTestCase.m */; };
 		02A08649D634F823B1B34C9446F8ABE1 /* FBSnapshotTestCase-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DD6FF7766CC0E6A8CC6E4C5FF10CC21 /* FBSnapshotTestCase-dummy.m */; };
 		03897D088B29BD7334F27927A7777140 /* UIApplication+StrictKeyWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = F2562E42CC03567292CE055CC33D5EA5 /* UIApplication+StrictKeyWindow.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		08D7C8E528AA629E009DF4CA /* MFBulletViewElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 08D7C8E328AA629E009DF4CA /* MFBulletViewElement.h */; };
+		08D7C8E628AA629E009DF4CA /* MFBulletViewElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D7C8E428AA629E009DF4CA /* MFBulletViewElement.m */; };
 		0B719B2FE0A44F90FC5CBB8069B888A6 /* EXPMatchers+raiseWithReason.h in Headers */ = {isa = PBXBuildFile; fileRef = CBB0AA05F69F82B5C626D6D3D17ED704 /* EXPMatchers+raiseWithReason.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0F3A7C0144901D6BC28990003EA6B98B /* EXPMatchers+raise.h in Headers */ = {isa = PBXBuildFile; fileRef = 108488F285A773A3BCE052B9350CD6CD /* EXPMatchers+raise.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1107C031F6C7F5A9786CF038198D5601 /* EXPMatchers+beLessThanOrEqualTo.h in Headers */ = {isa = PBXBuildFile; fileRef = 9392407C48D3EE80025186936C70627F /* EXPMatchers+beLessThanOrEqualTo.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -232,6 +234,8 @@
 		01B785871406A850B0A1E5ACC0D46F00 /* XCTestCase+Specta.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "XCTestCase+Specta.m"; path = "Specta/Specta/XCTestCase+Specta.m"; sourceTree = "<group>"; };
 		037F5CF6DD82B4B454527CB4C0B46851 /* NSValue+Expecta.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSValue+Expecta.m"; path = "Expecta/NSValue+Expecta.m"; sourceTree = "<group>"; };
 		03C705938AE94BD111A3CCC006753190 /* Pods-MFBulletView_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MFBulletView_Tests-Info.plist"; sourceTree = "<group>"; };
+		08D7C8E328AA629E009DF4CA /* MFBulletViewElement.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MFBulletViewElement.h; path = MFBulletView/Classes/MFBulletView/MFBulletViewElement.h; sourceTree = "<group>"; };
+		08D7C8E428AA629E009DF4CA /* MFBulletViewElement.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MFBulletViewElement.m; path = MFBulletView/Classes/MFBulletView/MFBulletViewElement.m; sourceTree = "<group>"; };
 		08EAFDE571921063133C199B8EDABBE0 /* MFBulletViewHeader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MFBulletViewHeader.h; path = MFBulletView/Classes/MFBulletView/MFBulletViewHeader.h; sourceTree = "<group>"; };
 		08F7F0770B4878B9883B87DCD8569CB4 /* Expecta */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Expecta; path = Expecta.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BF4C9FFB0A78AC6EDF88B9D1F647C94 /* EXPMatchers.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EXPMatchers.h; path = Expecta/Matchers/EXPMatchers.h; sourceTree = "<group>"; };
@@ -800,6 +804,8 @@
 				296275C0427C9D2A5A73EC157D3AC0FD /* MFBulletView.m */,
 				7981733948297B62136CF7266A2BBDBD /* MFBulletViewDefaultItem.h */,
 				BA22CEED9F005385BCF2CCDC97D1645C /* MFBulletViewDefaultItem.m */,
+				08D7C8E328AA629E009DF4CA /* MFBulletViewElement.h */,
+				08D7C8E428AA629E009DF4CA /* MFBulletViewElement.m */,
 				08EAFDE571921063133C199B8EDABBE0 /* MFBulletViewHeader.h */,
 				7883CF44F6121CF3EF5BF16E27E16090 /* MFBulletViewProtocol.h */,
 				9CDD8D636C2F5610382678B98E8AA3E5 /* Pod */,
@@ -900,6 +906,7 @@
 				15FCBA72EC4B22A73D2128E8EC4DAA6B /* MFBulletViewDefaultItem.h in Headers */,
 				E8A0CEB19E07B37F5D23E2E2B6769F6A /* MFBulletViewHeader.h in Headers */,
 				D221947244239E0DE420D2BB0BA2F28A /* MFBulletViewProtocol.h in Headers */,
+				08D7C8E528AA629E009DF4CA /* MFBulletViewElement.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1243,6 +1250,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08D7C8E628AA629E009DF4CA /* MFBulletViewElement.m in Sources */,
 				241FDDD26B92B4FD573CC9AEE27B8D4F /* MFBulletModel.m in Sources */,
 				4E682CD4B03358A89EEBBC1749863CF1 /* MFBulletView.m in Sources */,
 				980E5BB2115E53A3AA2C0F306ACFA686 /* MFBulletView-dummy.m in Sources */,

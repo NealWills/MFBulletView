@@ -23,8 +23,29 @@
     return self;
 }
 
-- (CGFloat)speed {
-    return 1;
+
++ (instancetype)modelWithTitle:(NSString *)title
+                         speed:(CGFloat)speed
+                distanceToLast:(CGFloat)distanceToLast {
+    return [[self alloc] initWithTitle:title
+                                 speed:speed
+                        distanceToLast:distanceToLast
+    ];
 }
+
+- (instancetype)initWithTitle:(NSString *)title
+                         speed:(CGFloat)speed
+               distanceToLast:(CGFloat)distanceToLast {
+    self = [super init];
+    if (self) {
+        self.title = title;
+        self.speed = speed;
+        self.distanceToLast = distanceToLast;
+    }
+    return self;
+}
+
+
+
 
 @end

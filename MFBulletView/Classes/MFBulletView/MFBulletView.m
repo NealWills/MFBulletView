@@ -8,6 +8,7 @@
 #import "MFBulletView.h"
 #import "MFBulletViewProtocol.h"
 #import "MFBulletViewDefaultItem.h"
+#import "MFBulletViewElement.h"
 
 @interface MFBulletView ()
 
@@ -19,6 +20,9 @@
 
 /// 轨道速度
 @property(nonatomic, strong) NSMutableArray <NSNumber *> *railOffsetList;
+
+/// item与model绑定器
+@property(nonatomic, strong) NSMutableArray <MFBulletViewElement *> *bindElementList;
 
 /// 空闲中的元素列表
 @property(atomic, strong) NSMutableArray <__kindof UIView<MFBulletViewProtocol> *> *relaxElementList;
@@ -37,6 +41,9 @@
 
 /// 轨道间隔
 @property(nonatomic, assign) CGFloat railSpacing;
+
+/// 轨道内元素间距
+@property(nonatomic, strong) NSMutableArray <NSNumber *> *railItemSpacingList;
 
 /// 计时器
 @property(nonatomic, strong) CADisplayLink *timer;
@@ -87,7 +94,15 @@
     return ^(CGFloat railSpacing) {
         weakSelf.railSpacing = railSpacing;
         return weakSelf;
-    };;
+    };
+}
+
+- (__kindof MFBulletView * _Nonnull (^)(NSArray <NSNumber *> *))setRailItemSpacing {
+    __weak typeof(self) weakSelf = self;
+    return ^(NSArray <NSNumber *> *railItemSpacingList) {
+        weakSelf.railItemSpacingList = railItemSpacingList.mutableCopy;
+        return weakSelf;
+    };
 }
 
 - (__kindof MFBulletView *(^)(NSArray <NSNumber *> *))setRailOffsetList {
@@ -184,6 +199,10 @@
         __kindof UIView *rail = self.railList[minIndex];
         CGFloat railHeight = rail.frame.size.height;
         __kindof UIView<MFBulletItemProtocol> *item = [self safeGetElementFromElementListWithModel:model];
+        MFBulletViewElement *bindElement = [self safeGetBindElementForItem:item];
+        bindElement.item = item;
+        bindElement.model = model;
+        
         CGFloat itemWidth = 0;
         CGFloat itemHeight = 0;
         if ([item respondsToSelector:@selector(itemSizeWithModel:)]) {
@@ -191,10 +210,24 @@
             itemWidth = itemSize.width;
             itemHeight = itemSize.height;
         }
-        CGFloat itemX = minTrailing + 35;
+        CGFloat railItemSpacing = 35;
+        if (self.railItemSpacingList.count > 0) {
+            railItemSpacing = [self.railItemSpacingList[minIndex % self.railItemSpacingList.count] floatValue];
+        }
+        if ([model respondsToSelector:@selector(distanceToLast)]) {
+            CGFloat distance = [model distanceToLast];
+            if (distance > 0) {
+                railItemSpacing = distance;
+            }
+        }
+        CGFloat itemX = minTrailing + railItemSpacing;
         CGFloat itemY = (railHeight - itemHeight) / 2.0;
         item.frame = CGRectMake(itemX, itemY, itemWidth, itemHeight);
-        [item configureItem];
+       
+        [rail addSubview:item];
+        if ([item respondsToSelector:@selector(configureItemWithModel:)]) {
+            [item configureItemWithModel:model];
+        }
     }];
     self.didAddElement = YES;
     if (!_timer) {
@@ -222,8 +255,11 @@
 - (void)configureSubviews {
     _railList = [NSMutableArray array];
     _railSpeedList = [NSMutableArray array];
+    _railItemSpacingList = [NSMutableArray array];
     _railOffsetList = [NSMutableArray array];
+    _bindElementList = [NSMutableArray array];
     [_railSpeedList addObjectsFromArray:@[@(1), @(1)]];
+    [_railItemSpacingList addObjectsFromArray:@[@(35), @(35)]];
     [_railOffsetList addObjectsFromArray:@[@(0), @(60)]];
     _relaxElementList = [NSMutableArray array];
     _workElementList = [NSMutableArray array];
@@ -274,11 +310,11 @@
         [self.railList enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             [obj.subviews enumerateObjectsUsingBlock:^(__kindof UIView<MFBulletItemProtocol> * _Nonnull item, NSUInteger idx1, BOOL * _Nonnull stop1) {
                 CGFloat itemSpeed = speed;
-                if ([item respondsToSelector:@selector(bulletModel)]) {
-                    __kindof MFBulletModel *bulletModel = [item bulletModel];
-                    if ([bulletModel respondsToSelector:@selector(speed)]) {
-                        if (bulletModel.speed > 0) {
-                            itemSpeed = bulletModel.speed;
+                MFBulletViewElement *bindElement = [self safeGetBindElementForItem:item];
+                if (bindElement.model) {
+                    if ([bindElement.model respondsToSelector:@selector(speed)]) {
+                        if (bindElement.model.speed > 0) {
+                            itemSpeed = bindElement.model.speed;
                         }
                     }
                 }
@@ -376,6 +412,30 @@
     [self.relaxElementList removeObjectAtIndex:itemIndex];
     return item;
 
+}
+
+- (MFBulletViewElement *)safeGetBindElementForItem:(__kindof UIView<MFBulletItemProtocol> *)item {
+    if (self.bindElementList.count < 1) {
+        MFBulletViewElement *bindElement = [[MFBulletViewElement alloc] init];
+        bindElement.item = item;
+        [self.bindElementList addObject:bindElement];
+        return bindElement;
+    }
+    __block MFBulletViewElement *bindElement;
+    [self.bindElementList enumerateObjectsUsingBlock:^(MFBulletViewElement * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSString *point = [NSString stringWithFormat:@"%p", obj.item];
+        NSString *toPoint = [NSString stringWithFormat:@"%p", item];
+        if ([point isEqual:toPoint]) {
+            bindElement = obj;
+        }
+    }];
+    if (!bindElement) {
+        bindElement = [[MFBulletViewElement alloc] init];
+        bindElement.item = item;
+        [self.bindElementList addObject:bindElement];
+        return bindElement;
+    }
+    return bindElement;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {

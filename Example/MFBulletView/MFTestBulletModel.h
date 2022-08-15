@@ -16,8 +16,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSString *title;
 
-
 + (instancetype)modelWithTitle:(NSString *)title;
+
++ (instancetype)modelWithTitle:(NSString *)title
+                         speed:(CGFloat)speed
+                distanceToLast:(CGFloat)distanceToLast;
 
 @end
 

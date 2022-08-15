@@ -40,22 +40,24 @@
     return self;
 }
 
-- (void)configureItem {
+- (void)configureItemWithModel:(__kindof MFBulletModel *)bulletModel {
     self.view.frame = self.bounds;
     self.titleLabel.frame = self.view.bounds;
+    
+    if ([bulletModel isKindOfClass:[MFTestBulletModel class]]) {
+        MFTestBulletModel *testBulletModel = bulletModel;
+        self.titleLabel.text = testBulletModel.title;
+    }
+    
 }
 
 - (CGSize)itemSizeWithModel:(__kindof MFBulletModel *)bulletModel {
     if ([bulletModel isKindOfClass:[MFTestBulletModel class]]) {
         MFTestBulletModel *testModel = bulletModel;
         CGSize titleSize = [testModel.title boundingRectWithSize:CGSizeMake(MAXFLOAT, 20) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]} context:nil].size;
-        return CGSizeMake(titleSize.width + 20, titleSize.height);
+        return CGSizeMake(titleSize.width + 20, 30);
     }
     return CGSizeZero;
-}
-
-- (__kindof MFBulletModel *)bulletModel {
-    return self.bulletModel;
 }
 
 @end
