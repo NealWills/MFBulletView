@@ -109,6 +109,25 @@ ViewController
     // Dispose of any resources that can be recreated.
 }
 
+- (void)lastItemViewAppear:(__kindof MFBulletModel *)bulletModel {
+    NSLog(@"lastItemViewAppear : %@", bulletModel);
+    
+    self.bulletView.setAddElements(@[
+        [MFTestBulletModel modelWithTitle:@"11223345" speed:arc4random_uniform(20) / 17.0 distanceToLast:12],
+        [MFTestBulletModel modelWithTitle:@"223333444556" speed:arc4random_uniform(20) / 17.0 distanceToLast:40],
+        [MFTestBulletModel modelWithTitle:@"dfdfsdfsdf" speed:arc4random_uniform(20) / 17.0 distanceToLast:15],
+        [MFTestBulletModel modelWithTitle:@"sdfsdfdsfdsf" speed:arc4random_uniform(20) / 17.0 distanceToLast:50],
+    ]);
+    
+    self.bulletView.setAddElements(@[
+        [MFTestBulletModel modelWithTitle:@"11223345" speed:arc4random_uniform(20) / 17.0 distanceToLast:12],
+        [MFTestBulletModel modelWithTitle:@"223333444556" speed:arc4random_uniform(20) / 17.0 distanceToLast:40],
+        [MFTestBulletModel modelWithTitle:@"dfdfsdfsdf" speed:arc4random_uniform(20) / 17.0 distanceToLast:15],
+        [MFTestBulletModel modelWithTitle:@"sdfsdfdsfdsf" speed:arc4random_uniform(20) / 17.0 distanceToLast:50],
+    ]);
+
+}
+
 @end
 
 

@@ -20,6 +20,11 @@
 
 - (Class)itemClassWithModel:(__kindof MFBulletModel *)bulletModel;
 
+/**
+ * 最后一个item即将出现
+ */
+- (void)lastItemViewAppear:(__kindof MFBulletModel *)bulletModel;
+
 @end
 
 

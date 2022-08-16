@@ -63,6 +63,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (__kindof MFBulletView *(^)(NSArray <NSNumber *> *))setRailSpeedList;
 
 /**
+ * 设置计时器是否启动
+ * @return 本体-链式语法调用
+ */
+- (__kindof MFBulletView *(^)(BOOL))setTimerStart;
+
+/**
  * 填充多条弹幕
  * @return 本体-链式语法调用
  */

@@ -51,6 +51,8 @@
 
 @property(nonatomic, weak) id<MFBulletViewProtocol> viewDelegate;
 
+@property(nonatomic, strong) __kindof UIView<MFBulletViewProtocol> *lastShowItem;
+
 @end
 
 @implementation MFBulletView
@@ -77,6 +79,7 @@
     __weak typeof(self) weakSelf = self;
     return ^(CGFloat railHeight) {
         weakSelf.railHeight = railHeight;
+        weakSelf.railCount = weakSelf.railCount;
         return weakSelf;
     };
 }
@@ -93,6 +96,7 @@
     __weak typeof(self) weakSelf = self;
     return ^(CGFloat railSpacing) {
         weakSelf.railSpacing = railSpacing;
+        weakSelf.railCount = weakSelf.railCount;
         return weakSelf;
     };
 }
@@ -119,6 +123,31 @@
         weakSelf.railSpeedList = railSpeedList.mutableCopy;
         return weakSelf;
     };
+}
+
+- (__kindof MFBulletView *(^)(BOOL))setTimerStart {
+    __weak typeof(self) weakSelf = self;
+    return ^(BOOL shouldTimerStart) {
+        [weakSelf configureTimerStart:shouldTimerStart];
+        return weakSelf;
+    };
+}
+
+- (void)configureTimerStart:(BOOL)shouldTimerStart {
+    if (shouldTimerStart) {
+        if (_timer) {
+            return;
+        }
+        _timer = [CADisplayLink displayLinkWithTarget:self selector:@selector(timerChanged)];
+        [_timer addToRunLoop:NSRunLoop.mainRunLoop forMode:NSRunLoopCommonModes];
+    } else {
+        if (!_timer) {
+            return;
+        }
+        [_timer removeFromRunLoop:NSRunLoop.mainRunLoop forMode:NSRunLoopCommonModes];
+        [_timer invalidate];
+        _timer = nil;
+    }
 }
 
 - (__kindof MFBulletView *(^)(NSArray <__kindof MFBulletModel *> *))setAddElements {
@@ -301,12 +330,16 @@
 }
 
 - (void)timerChanged {
+    
+    __block CGFloat maxLeading = -99999999;
+    __block __kindof UIView<MFBulletItemProtocol> * _Nonnull maxLeadingItem;
     for (int i = 0; i < self.railCount; ++i) {
         CGFloat speed = 1;
         if (self.railSpeedList.count) {
             NSNumber *speedNum = self.railSpeedList[i % self.railSpeedList.count];
             speed = speedNum.floatValue;
         }
+        
         [self.railList enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             [obj.subviews enumerateObjectsUsingBlock:^(__kindof UIView<MFBulletItemProtocol> * _Nonnull item, NSUInteger idx1, BOOL * _Nonnull stop1) {
                 CGFloat itemSpeed = speed;
@@ -322,10 +355,53 @@
                 CGFloat x = left - itemSpeed;
                 
                 item.frame = CGRectMake(x, item.frame.origin.y, item.frame.size.width, item.frame.size.height);
+                if (x > maxLeading) {
+                    maxLeading = x;
+                    maxLeadingItem = item;
+                }
             }];
         }];
     }
 
+    
+    
+    if (maxLeadingItem && maxLeading > 0 && maxLeading < self.frame.size.width + 10) {
+        
+        __kindof UIView<MFBulletItemProtocol> * _Nonnull lastShowItem;
+        
+        if (!self.lastShowItem) {
+            self.lastShowItem = maxLeadingItem;
+            lastShowItem = self.lastShowItem;
+        } else {
+            NSString *point = [NSString stringWithFormat:@"%p", maxLeadingItem];
+            NSString *toPoint = [NSString stringWithFormat:@"%p", self.lastShowItem];
+            if (![point isEqualToString:toPoint]) {
+                self.lastShowItem = maxLeadingItem;
+                lastShowItem = self.lastShowItem;
+            }
+        }
+        if (lastShowItem) {
+            __block MFBulletViewElement *bindElement;
+            [self.bindElementList enumerateObjectsUsingBlock:^(MFBulletViewElement * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                NSString *point = [NSString stringWithFormat:@"%p", obj.item];
+                NSString *toPoint = [NSString stringWithFormat:@"%p", lastShowItem];
+                if ([point isEqual:toPoint]) {
+                    bindElement = obj;
+                }
+            }];
+            if (bindElement) {
+                if ([self.viewDelegate respondsToSelector:@selector(lastItemViewAppear:)]) {
+                    [self.viewDelegate lastItemViewAppear:bindElement.model];
+                }
+            } else {
+                if ([self.viewDelegate respondsToSelector:@selector(lastItemViewAppear:)]) {
+                    [self.viewDelegate lastItemViewAppear:nil];
+                }
+            }
+        }
+        
+    }
+    
     NSMutableArray *relaxList = [NSMutableArray array];
     NSMutableArray *workList = [NSMutableArray array];
     [self.workElementList enumerateObjectsUsingBlock:^(__kindof UIView<MFBulletViewProtocol> * _Nonnull item, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -353,6 +429,7 @@
 }
 
 - (void)emptyRailAction {
+    self.lastShowItem = nil;
     if (!self.shouldRemoveWhenEmpty) {
         return;
     }
