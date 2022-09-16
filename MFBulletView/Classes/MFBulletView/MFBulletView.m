@@ -520,6 +520,14 @@
     return bindElement;
 }
 
+- (void)clearAllBullet {
+    [self.workElementList enumerateObjectsUsingBlock:^(__kindof UIView<MFBulletViewProtocol> * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [obj removeFromSuperview];
+    }];
+    [self.relaxElementList addObjectsFromArray:self.workElementList];
+    [self.workElementList removeAllObjects];
+}
+
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {

@@ -116,6 +116,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)addElement:(MFBulletModel *)element forCount:(int)count;
 
+/**
+ * 清空所有弹幕
+ */
+- (void)clearAllBullet;
+
 @end
 
 NS_ASSUME_NONNULL_END
