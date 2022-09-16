@@ -364,7 +364,7 @@
     }
 
     
-    
+    __block MFBulletViewElement *bindElement;
     if (maxLeadingItem && maxLeading > 0 && maxLeading < self.frame.size.width + 10) {
         
         __kindof UIView<MFBulletItemProtocol> * _Nonnull lastShowItem;
@@ -380,8 +380,9 @@
                 lastShowItem = self.lastShowItem;
             }
         }
+        
+        
         if (lastShowItem) {
-            __block MFBulletViewElement *bindElement;
             [self.bindElementList enumerateObjectsUsingBlock:^(MFBulletViewElement * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 NSString *point = [NSString stringWithFormat:@"%p", obj.item];
                 NSString *toPoint = [NSString stringWithFormat:@"%p", lastShowItem];
@@ -405,6 +406,7 @@
     NSMutableArray *relaxList = [NSMutableArray array];
     NSMutableArray *workList = [NSMutableArray array];
     [self.workElementList enumerateObjectsUsingBlock:^(__kindof UIView<MFBulletViewProtocol> * _Nonnull item, NSUInteger idx, BOOL * _Nonnull stop) {
+        
         CGFloat right = item.frame.origin.x + item.frame.size.width;
         if (right < -1) {
             [relaxList addObject:item];
@@ -424,6 +426,9 @@
     [self.relaxElementList addObjectsFromArray:relaxList];
 
     if (self.workElementList.count < 1) {
+        if ([self.viewDelegate respondsToSelector:@selector(lastItemViewWillDisAppear:)]) {
+            [self.viewDelegate lastItemViewWillDisAppear:bindElement.model];
+        }
         [self emptyRailAction];
     }
 }

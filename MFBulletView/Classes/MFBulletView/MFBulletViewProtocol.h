@@ -33,6 +33,12 @@
  */
 - (void)lastItemViewAppear:(__kindof MFBulletModel *)bulletModel;
 
+/**
+ * 最后一个item即将消失
+ * @param bulletModel 最后一个元素的模型， 有可能为nil
+ */
+- (void)lastItemViewWillDisAppear:(__kindof MFBulletModel *)bulletModel;
+
 @end
 
 
