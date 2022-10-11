@@ -53,6 +53,9 @@
 
 @property(nonatomic, strong) __kindof UIView<MFBulletViewProtocol> *lastShowItem;
 
+@property(nonatomic, assign) NSUInteger currentElementIndex;
+@property(nonatomic, strong) NSMutableArray <NSNumber *> *railCurrentElementIndex;
+
 @end
 
 @implementation MFBulletView
@@ -226,6 +229,9 @@
             }
         }];
         __kindof UIView *rail = self.railList[minIndex];
+        int railElementIndex = [self.railCurrentElementIndex[minIndex] intValue] + 1;
+        self.railCurrentElementIndex[minIndex] = @(railElementIndex);
+        self.currentElementIndex = self.currentElementIndex + 1;
         CGFloat railHeight = rail.frame.size.height;
         __kindof UIView<MFBulletItemProtocol> *item = [self safeGetElementFromElementListWithModel:model];
         MFBulletViewElement *bindElement = [self safeGetBindElementForItem:item];
@@ -257,6 +263,13 @@
         if ([item respondsToSelector:@selector(configureItemWithModel:)]) {
             [item configureItemWithModel:model];
         }
+        if ([item respondsToSelector:@selector(configureItemWithModel:indexPath:)]) {
+            [item configureItemWithModel:model indexPath:[NSIndexPath indexPathForRow:railElementIndex inSection:minIndex]];
+        }
+        if ([item respondsToSelector:@selector(configureItemWithModel:index:)]) {
+            [item configureItemWithModel:model index:self.currentElementIndex];
+        }
+        
     }];
     self.didAddElement = YES;
     if (!_timer) {
@@ -287,9 +300,11 @@
     _railItemSpacingList = [NSMutableArray array];
     _railOffsetList = [NSMutableArray array];
     _bindElementList = [NSMutableArray array];
+    _railCurrentElementIndex = [NSMutableArray array];
     [_railSpeedList addObjectsFromArray:@[@(1), @(1)]];
     [_railItemSpacingList addObjectsFromArray:@[@(35), @(35)]];
     [_railOffsetList addObjectsFromArray:@[@(0), @(60)]];
+    [_railCurrentElementIndex addObjectsFromArray:@[@(0), @(0)]];
     _relaxElementList = [NSMutableArray array];
     _workElementList = [NSMutableArray array];
     _railHeight = 28;
@@ -307,6 +322,7 @@
     }];
     [self.relaxElementList addObjectsFromArray:self.workElementList];
     [self.workElementList removeAllObjects];
+    
     [self.railList enumerateObjectsUsingBlock:^(__kindof UIView *obj, NSUInteger idx, BOOL *stop) {
         [obj.subviews enumerateObjectsUsingBlock:^(__kindof UIView *obj1, NSUInteger idx1, BOOL *stop1) {
             [obj1 removeFromSuperview];
@@ -315,6 +331,7 @@
     }];
     [self.railList removeAllObjects];
 
+    [self.railCurrentElementIndex removeAllObjects];
     for (int i = 0; i < newRailCount; ++i) {
         CGFloat railHeight = self.railHeight;
         CGFloat railSpacing = self.railSpacing;
@@ -326,6 +343,7 @@
 
         NSMutableArray <__kindof UIView<MFBulletViewProtocol> *> *workList = [NSMutableArray array];
         [self.workElementList addObjectsFromArray:workList];
+        [self.railCurrentElementIndex addObject:@(0)];
     }
 }
 

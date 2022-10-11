@@ -35,38 +35,53 @@
     .setRailSpeedList(@[@(1), @(1), @(1)])
     .setViewDelegate(self)
     .setAddElements(@[
-        [MFTestBulletModel modelWithTitle:@"11223345" speed:arc4random_uniform(20) / 17.0 distanceToLast:12],
-        [MFTestBulletModel modelWithTitle:@"223333444556" speed:arc4random_uniform(20) / 17.0 distanceToLast:40],
-        [MFTestBulletModel modelWithTitle:@"dfdfsdfsdf" speed:arc4random_uniform(20) / 17.0 distanceToLast:15],
-        [MFTestBulletModel modelWithTitle:@"sdfsdfdsfdsf" speed:arc4random_uniform(20) / 17.0 distanceToLast:50],
+        [MFTestBulletModel modelWithTitle:@"11223345" speed:0.2 distanceToLast:12],
+        [MFTestBulletModel modelWithTitle:@"223333444556" speed:0.2 distanceToLast:40],
+        [MFTestBulletModel modelWithTitle:@"dfdfsdfsdf" speed:0.2 distanceToLast:15],
+        [MFTestBulletModel modelWithTitle:@"sdfsdfdsfdsf" speed:0.2 distanceToLast:50],
     ]);
     
-    self.bulletView.setAddElements(@[
-        [MFTestBulletModel modelWithTitle:@"11223345" speed:arc4random_uniform(20) / 17.0 distanceToLast:12],
-        [MFTestBulletModel modelWithTitle:@"223333444556" speed:arc4random_uniform(20) / 17.0 distanceToLast:40],
-        [MFTestBulletModel modelWithTitle:@"dfdfsdfsdf" speed:arc4random_uniform(20) / 17.0 distanceToLast:15],
-        [MFTestBulletModel modelWithTitle:@"sdfsdfdsfdsf" speed:arc4random_uniform(20) / 17.0 distanceToLast:50],
-    ]);
+//    self.bulletView.setAddElements(@[
+//        [MFTestBulletModel modelWithTitle:@"11223345" speed:arc4random_uniform(20) / 17.0 distanceToLast:12],
+//        [MFTestBulletModel modelWithTitle:@"223333444556" speed:arc4random_uniform(20) / 17.0 distanceToLast:40],
+//        [MFTestBulletModel modelWithTitle:@"dfdfsdfsdf" speed:arc4random_uniform(20) / 17.0 distanceToLast:15],
+//        [MFTestBulletModel modelWithTitle:@"sdfsdfdsfdsf" speed:arc4random_uniform(20) / 17.0 distanceToLast:50],
+//    ]);
     
 }
 
 - (void)lastItemViewAppear:(__kindof MFBulletModel *)bulletModel {
     NSLog(@"lastItemViewAppear : %@", bulletModel);
     
-    
     self.bulletView.setAddElements(@[
-        [MFTestBulletModel modelWithTitle:@"11223345" speed:arc4random_uniform(20) / 17.0 distanceToLast:12],
-        [MFTestBulletModel modelWithTitle:@"223333444556" speed:arc4random_uniform(20) / 17.0 distanceToLast:40],
-        [MFTestBulletModel modelWithTitle:@"dfdfsdfsdf" speed:arc4random_uniform(20) / 17.0 distanceToLast:15],
-        [MFTestBulletModel modelWithTitle:@"sdfsdfdsfdsf" speed:arc4random_uniform(20) / 17.0 distanceToLast:50],
+        [MFTestBulletModel modelWithTitle:@"11223345" speed:0.2 distanceToLast:12],
+        [MFTestBulletModel modelWithTitle:@"223333444556" speed:0.2 distanceToLast:40],
+        [MFTestBulletModel modelWithTitle:@"dfdfsdfsdf" speed:0.2 distanceToLast:15],
+        [MFTestBulletModel modelWithTitle:@"sdfsdfdsfdsf" speed:0.2 distanceToLast:50],
     ]);
     
     self.bulletView.setAddElements(@[
-        [MFTestBulletModel modelWithTitle:@"11223345" speed:arc4random_uniform(20) / 17.0 distanceToLast:12],
-        [MFTestBulletModel modelWithTitle:@"223333444556" speed:arc4random_uniform(20) / 17.0 distanceToLast:40],
-        [MFTestBulletModel modelWithTitle:@"dfdfsdfsdf" speed:arc4random_uniform(20) / 17.0 distanceToLast:15],
-        [MFTestBulletModel modelWithTitle:@"sdfsdfdsfdsf" speed:arc4random_uniform(20) / 17.0 distanceToLast:50],
+        [MFTestBulletModel modelWithTitle:@"11223345" speed:0.2 distanceToLast:12],
+        [MFTestBulletModel modelWithTitle:@"223333444556" speed:0.2 distanceToLast:40],
+        [MFTestBulletModel modelWithTitle:@"dfdfsdfsdf" speed:0.2 distanceToLast:15],
+        [MFTestBulletModel modelWithTitle:@"sdfsdfdsfdsf" speed:0.2 distanceToLast:50],
     ]);
+    
+    
+    
+//    self.bulletView.setAddElements(@[
+//        [MFTestBulletModel modelWithTitle:@"11223345" speed:arc4random_uniform(20) / 17.0 distanceToLast:12],
+//        [MFTestBulletModel modelWithTitle:@"223333444556" speed:arc4random_uniform(20) / 17.0 distanceToLast:40],
+//        [MFTestBulletModel modelWithTitle:@"dfdfsdfsdf" speed:arc4random_uniform(20) / 17.0 distanceToLast:15],
+//        [MFTestBulletModel modelWithTitle:@"sdfsdfdsfdsf" speed:arc4random_uniform(20) / 17.0 distanceToLast:50],
+//    ]);
+//
+//    self.bulletView.setAddElements(@[
+//        [MFTestBulletModel modelWithTitle:@"11223345" speed:arc4random_uniform(20) / 17.0 distanceToLast:12],
+//        [MFTestBulletModel modelWithTitle:@"223333444556" speed:arc4random_uniform(20) / 17.0 distanceToLast:40],
+//        [MFTestBulletModel modelWithTitle:@"dfdfsdfsdf" speed:arc4random_uniform(20) / 17.0 distanceToLast:15],
+//        [MFTestBulletModel modelWithTitle:@"sdfsdfdsfdsf" speed:arc4random_uniform(20) / 17.0 distanceToLast:50],
+//    ]);
 
 }
 

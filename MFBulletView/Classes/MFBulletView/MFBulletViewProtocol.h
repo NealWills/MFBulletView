@@ -17,6 +17,12 @@
 
 - (void)configureItemWithModel:(__kindof MFBulletModel *)bulletModel;
 
+@optional
+- (void)configureItemWithModel:(__kindof MFBulletModel *)bulletModel indexPath:(NSIndexPath *)indexPath;
+
+@optional
+- (void)configureItemWithModel:(__kindof MFBulletModel *)bulletModel index:(NSUInteger)index;
+
 @end
 
 @protocol MFBulletViewProtocol <NSObject>

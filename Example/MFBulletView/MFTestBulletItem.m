@@ -51,6 +51,23 @@
     
 }
 
+- (void)configureItemWithModel:(__kindof MFBulletModel *)bulletModel indexPath:(NSIndexPath *)indexPath {
+//    if (indexPath.row % 2 == 0) {
+//        self.backgroundColor = [UIColor purpleColor];
+//    } else if (indexPath.row % 2 == 1) {
+//        self.backgroundColor = [UIColor systemPinkColor];
+//    }
+    
+}
+
+- (void)configureItemWithModel:(__kindof MFBulletModel *)bulletModel index:(NSUInteger)index {
+    if (index % 2 == 0) {
+        self.backgroundColor = [UIColor purpleColor];
+    } else if (index % 2 == 1) {
+        self.backgroundColor = [UIColor systemPinkColor];
+    }
+}
+
 - (CGSize)itemSizeWithModel:(__kindof MFBulletModel *)bulletModel {
     if ([bulletModel isKindOfClass:[MFTestBulletModel class]]) {
         MFTestBulletModel *testModel = bulletModel;
